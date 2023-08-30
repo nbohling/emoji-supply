@@ -32,10 +32,10 @@ const copy = (el) => {
   } else {
     let form = document.getElementById("form");
     form.childNodes.forEach(node => {
-      if (node.className == "ignore") return;      
+      if (node.className == "ignore") return;
       if (node.options) {
         node = node.options[node.selectedIndex];
-      } 
+      }
       let string = node.innerText || node.value || "";
       console.log("child", node, string)
 
@@ -158,7 +158,7 @@ function renderContent(time, seed) {
   if (iOS && Math.abs(window.orientation) == 90) {
     [sw, sh] = [sh, sw]
   }
-  
+
   sw *= density;
   sh *= density;
 
@@ -189,13 +189,13 @@ function renderContent(time, seed) {
     document.title = "Emoji Wallpaper"
   }
 
-  
-  filename += "-" + sw / density + "x" + sh / density 
+
+  filename += "-" + sw / density + "x" + sh / density
   + (density != 1 ? "@" + density + "x" : "") + ".png"
-  
+
   // a.innerHTML = name + "<p>"
   a.download = filename;
-  
+
   if (c.getAttribute("height") != sh) c.setAttribute("height", sh);
   if (c.getAttribute("width") != sw) c.setAttribute("width", sw);
 
@@ -203,7 +203,7 @@ function renderContent(time, seed) {
   ctx.save()
 
   ctx.clearRect(0, 0, c.width/2, c.height);
-  
+
   ctx.fillStyle = color || "#1e1e1e";
   ctx.lineWidth = 2 * density;
   ctx.fillRect(0,0,c.width,c.height);
@@ -215,7 +215,7 @@ function renderContent(time, seed) {
   //   grd.addColorStop(1,darkColor);
   //   ctx.fillStyle=grd;
   //   ctx.fillRect(0,0,c.width,c.height);
-  
+
   if (options.texture == 'flat') {
     ctx.fillStyle = color;
   } else {
@@ -223,7 +223,7 @@ function renderContent(time, seed) {
     var r2 = c.width * 2;
     var grd = ctx.createRadialGradient(
         c.width / 2, c.height - r2,
-        r2, 
+        r2,
         c.width / 2, 0 - r2,
         r2);
     grd.addColorStop(0,darkColor);
@@ -256,13 +256,13 @@ function renderContent(time, seed) {
 
   let width = c.width - marginX * 2;
   let height = c.height - marginY * 2;
-  
+
   if (debug) ctx.strokeRect(marginX, marginY, width, height);
   if (debug) ctx.strokeRect(marginX, marginY, width, height);
 
   let spacingX = size;
   let spacingY = spacingX;
-      
+
   ctx.lineWidth = 0.5
   ctx.textAlign = 'center'
 
@@ -280,7 +280,7 @@ function renderContent(time, seed) {
   const randomEmoji = () => {
     let i = Math.floor(random() * emojis.length);
 
-    if (emojis.length > 3 && i == lastEmoji) { 
+    if (emojis.length > 3 && i == lastEmoji) {
       i += Math.ceil(random() * (emojis.length - 1))
       i %= emojis.length;
     }
@@ -304,7 +304,7 @@ function renderContent(time, seed) {
     // Fit to the rect cleanly by fudging spacing
     spacingX *= (width -size/2) / (spacingX * cols);
     spacingY *= (height - size/2) / (spacingY * rows);
-    
+
     if (pattern == "diamond" || pattern == "hex") {
       spacingX *= (width  - (size * (cols-1))) / (spacingX * (cols-1));
       spacingY *= (height - (size * (rows-1))) / (spacingY * (rows-1));
@@ -339,9 +339,9 @@ function renderContent(time, seed) {
         ctx.shadowBlur = size / 8;
 
         ctx.save()
-        ctx.translate(marginX + (spacingX + size) * (x + rx + staggerX), 
+        ctx.translate(marginX + (spacingX + size) * (x + rx + staggerX),
                       marginY + (spacingY + size) * (y + ry));
-        
+
         let flip = false;
         if (order == 'alternating') {
           if (pattern == 'random') {
@@ -350,7 +350,7 @@ function renderContent(time, seed) {
             flip = y%2;
           }
         }
-                        
+
         if (flip) {
           ctx.scale(-1, 1);
         }
@@ -368,7 +368,7 @@ function renderContent(time, seed) {
         ctx.fillText(emoji, 0, + size/3);
         ctx.restore();
       }
-    }      
+    }
   }
 
   // Warning: computationally expensive.
@@ -399,7 +399,7 @@ function renderContent(time, seed) {
     }
 
     bubbs.reverse();
-    
+
     for (var i = 0; i < bubbs.length; i++) {
       var b = bubbs[i];
       ctx.save()
@@ -416,7 +416,7 @@ function renderContent(time, seed) {
 
       if (order == 'alternating' || order == 'random') {
         ctx.scale(1 - 2*(i%2), 1);
-      } 
+      }
       if (order == 'random') {
         ctx.rotate((random() - 0.5) * Math.PI/5)
       }
@@ -440,7 +440,7 @@ function renderContent(time, seed) {
     let rows = Math.ceil(height / size);
 
     const sizes = [2, 3, 4];
-    
+
     const bins = Array.from(Array(cols).keys()).map(i => {
       return new Array(rows).fill(false);
     });
@@ -506,7 +506,7 @@ function renderContent(time, seed) {
   }
 
   // <em>r = c√n</em><br><em>θ = i × 137.5°</em>
-  
+
   const spiralLayout = (emojis, options = {}, varyScale = false) => {
 
     var scale = size * 1.1,
@@ -529,7 +529,7 @@ function renderContent(time, seed) {
         var a = i * α - elapsed/100000;
 
         if (scale*r*spacing > maxRadius) {
-          break; 
+          break;
         }
 
         let randomScale = pattern == "random" ? 1.0 : 0.00;
@@ -538,7 +538,7 @@ function renderContent(time, seed) {
 
         var x = marginX + width / 2  + scale * r * Math.cos(a) * spacing + size * rx;
         var y = marginY + height / 2 + scale * r * Math.sin(a) * spacing + size * ry;
-        
+
         if (x < -size || x > (width + marginX*2 + size)) continue;
         if (y < -size || y > (height + marginY*2 + size)) continue;
 
@@ -553,7 +553,7 @@ function renderContent(time, seed) {
             flip = i%2;
           }
         }
-                        
+
         if (flip) {
           ctx.scale(-1, 1);
         }
@@ -569,15 +569,15 @@ function renderContent(time, seed) {
           ctx.strokeRect(-2, -2, 4, 4);
           ctx.globalAlpha = 0.2
         }
-  
+
           // ctx.fillText(emoji, 0, size * 0.375);
-          
+
           ctx.drawImage(emojiCanvas[emojiIndex], -size, -size, size*2, size*2);
-        
+
         ctx.restore();
       }
-    }      
-  
+    }
+
   let emojiString = document.querySelector('#emojiPicker').value || " ";
   let emojisRaw = runes(emojiString)
   let emojis = []
@@ -592,7 +592,7 @@ function renderContent(time, seed) {
     }
     emojis.push(emoji);
   }
-  
+
   let iconSize = 160;
   emojiCanvas = emojis.map(emoji => {
     var imgcanvas = createCanvas(iconSize*2, iconSize*2);
@@ -604,12 +604,12 @@ function renderContent(time, seed) {
     return imgcanvas;
   })
   ctx.fillStyle = textColor;
-  
+
   switch (pattern) {
     case 'hex':
     case 'diamond':
     case 'grid':
-    case 'random':      
+    case 'random':
     {
       gridLayout(emojis, options);
       break;
@@ -627,7 +627,7 @@ function renderContent(time, seed) {
         break;
       }
     case 'foam':
-    case 'many':  
+    case 'many':
     {
       foamLayout(emojis, options);
       break;
@@ -636,7 +636,7 @@ function renderContent(time, seed) {
       packingLayout(emojis, options);
       break;
     }
-      
+
 
 
     default: {
@@ -645,7 +645,7 @@ function renderContent(time, seed) {
   }
 
 
-  
+
 
   // Generate Noise
   // var dt = ctx.getImageData(0,0, c.width, c.height);
@@ -658,14 +658,14 @@ function renderContent(time, seed) {
   //   dd[p++] += Math.round((random() - 0.5) * intensity);
   //   dd[p++] += Math.round((random() - 0.5) * intensity);
   //   dd[p++] += 0 //255;
-  // } 
+  // }
   // ctx.putImageData(dt, 0, 0);
   vingette = options.texture != 'flat';
   if (vingette) {
     ctx.globalCompositeOperation = "hard-light";
     grd = ctx.createRadialGradient(
       c.width / 2, c.height/4,
-      c.width/4, 
+      c.width/4,
       c.width/2 , c.height/2 ,
       Math.hypot(c.width/2, c.height/2)*1.1);
   //  grd.addColorStop(0,darkColor);
@@ -708,7 +708,7 @@ function changeListeners() {
     })
   });
 
-  var emojiPicker = document.querySelector('#emojiPicker') 
+  var emojiPicker = document.querySelector('#emojiPicker')
     emojiPicker.addEventListener('input', e => {
     render();
   })
@@ -749,8 +749,8 @@ if (window.obsstudio) {
   startAnimation()
 }
 
-document.fonts.ready.then(function () { 
-  console.log("fonts loaded")  
+document.fonts.ready.then(function () {
+  console.log("fonts loaded")
 });
 
 function toggleAdvanced() {
@@ -777,11 +777,11 @@ function hexToRGB(hex) {
   var r = (rgb >> 16) & 0xff;  // extract red
   var g = (rgb >>  8) & 0xff;  // extract green
   var b = (rgb >>  0) & 0xff;  // extract blue
-  return [r,g,b]; 
+  return [r,g,b];
 }
 
 function luminance(rgb) {
-  var luma = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];  
+  var luma = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
   var luma2 = rgb2lab(rgb);
   return luma;
 }
@@ -789,7 +789,7 @@ function luminance(rgb) {
 function contrastColor(hex, shift) {
   var rgb = hexToRGB(hex);
   var lab = rgb2lab(rgb);
-  
+
   if (shift) {
     lab[0] += shift;
   } else if (lab[0]< 40) {
@@ -802,11 +802,11 @@ function contrastColor(hex, shift) {
   rgb[0] = Math.round(rgb[0]);
   rgb[1] = Math.round(rgb[1]);
   rgb[2] = Math.round(rgb[2]);
-  
+
   hsl[0] = Math.round(hsl[0] * 360);
   hsl[1] = Math.round(hsl[1] * 100);
   hsl[2] = Math.round(hsl[2] * 100);
-  return "hsl(" + hsl[0] + ", " + hsl[1] + "%, " + hsl[2] + "%)" 
+  return "hsl(" + hsl[0] + ", " + hsl[1] + "%, " + hsl[2] + "%)"
 }
 
 function lab2rgb(lab){
@@ -827,8 +827,8 @@ function lab2rgb(lab){
   g = (g > 0.0031308) ? (1.055 * Math.pow(g, 1/2.4) - 0.055) : 12.92 * g;
   b = (b > 0.0031308) ? (1.055 * Math.pow(b, 1/2.4) - 0.055) : 12.92 * b;
 
-  return [Math.max(0, Math.min(1, r)) * 255, 
-          Math.max(0, Math.min(1, g)) * 255, 
+  return [Math.max(0, Math.min(1, r)) * 255,
+          Math.max(0, Math.min(1, g)) * 255,
           Math.max(0, Math.min(1, b)) * 255]
 }
 

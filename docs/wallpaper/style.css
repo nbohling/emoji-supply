@@ -129,7 +129,7 @@ input#rows, input#cols {
   box-shadow: 0px 0px 0.25em #0066ff;
 }
 
-.button:focus{  
+.button:focus{
 	outline: none;
   box-shadow: 0px 0px 2px #0066ff;
 	border-radius:1em;
