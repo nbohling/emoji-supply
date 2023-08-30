@@ -12,56 +12,51 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Emoji&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap">
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z353MGES3V"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-Z353MGES3V');
-  </script>
 </head>
 
 <body class="loading">
-  <!-- partial:index.partial.html -->
+  <canvas id="canvas"></canvas>
 
-  <form id="form"><label for="t"></label><input id="title" name="t" type="text" size=25 placeholder="untitled wallpaper"
-      value="">
-    <br>
+  <form id="form">
+    <div class="hidden">
+      <label for="t"></label>
+      <input id="title" name="t" type="text" size=25 placeholder="untitled wallpaper" value="">
 
-    <select id="patternPicker" name="pattern">
-      <option value="grid">A grid</option>
-      <option value="diamond">Diamonds</option>
-      <option value="hex">Hexes</option>
-      <option value="spiral">Spirals</option>
-      <option value="scalespiral">A swirl</option>
-      <option value="random">A sprinkle</option>
-      <option value="many">Multitudes</option>
-      <option value="foam" selected>Bubbles</option>
-      <option value="stacks">Stacks</option>
-    </select>
-    <label for="patternPicker"> of </label>
+      <select id="patternPicker" name="pattern">
+        <option value="grid">A grid</option>
+        <option value="diamond">Diamonds</option>
+        <option value="hex">Hexes</option>
+        <option value="spiral">Spirals</option>
+        <option value="scalespiral">A swirl</option>
+        <option value="random">A sprinkle</option>
+        <option value="many">Multitudes</option>
+        <option value="foam" selected>Bubbles</option>
+        <option value="stacks">Stacks</option>
+      </select>
+      <label for="patternPicker"> of </label>
 
-    <label for="orderPicker"></label>
+      <label for="orderPicker"></label>
 
-    <select id="orderPicker" name="order">
-      <option value="ordered">ordered</option>
-      <option value="alternating">alternating</option>
-      <option value="random" selected>random</option>
-    </select>
+      <select id="orderPicker" name="order">
+        <option value="ordered">ordered</option>
+        <option value="alternating">alternating</option>
+        <option value="random" selected>random</option>
+      </select>
+    </div>
 
     <label for="emojiPicker"></label>
     <input id="emojiPicker" name="emoji" type="text" size=10 placeholder="emoji" value="🍌🍓🍊🍇">
 
-    <br>
-    <label for="texture"></label><select id="texture" name="texture">
-      <option value="flat">on a solid field of</option>
-      <option value="gradient" selected>on a gradient of </option>
-      <option value="monochrome">in monochrome</option>
-    </select>
+    <div class="hidden">
+      <label for="texture"></label><select id="texture" name="texture">
+        <option value="flat">on a solid field of</option>
+        <option value="gradient" selected>on a gradient of </option>
+        <option value="monochrome">in monochrome</option>
+      </select>
 
-    <label for="colorPicker">&nbsp;</label>
-    <input id="colorPicker" name="color" type="color" onInput="setColor(this);" value="#ffe7bd">
-    &nbsp;&nbsp;&nbsp;&nbsp;
+      <label for="colorPicker">&nbsp;</label>
+      <input id="colorPicker" name="color" type="color" onInput="setColor(this);" value="#ffe7bd">
+    </div>
     <!-- <div style="display:inline-block;">
 <span class="swatch" value="#1e1e1e" style="background-color:#1e1e1e;"></span>
 <span class="swatch" value="#eeeeee" style="background-color:#eeeeee;"></span>
@@ -71,7 +66,7 @@
 <span class="swatch" value="#941751" style="background-color:#941751;"></span>
 </div> -->
 
-    <div class="ignore">
+    <div class="ignore hidden">
       <label for="scalePicker">A </label>
 
       <select id="scalePicker" name="scale">
@@ -89,10 +84,9 @@
         <option value="1920x1080">a virtual background</option>
         <option value="1600x1600">a square</option>
       </select>
-
     </div>
 
-    <div class="ignore" id="advanced">
+    <div class="ignore hidden" id="advanced">
       <!-- hidden URL param: fontSize=50 -->
       font size: <input id="fontSize" name="fontSize" type="text" size=1 value="" /> <label for="fontSize">px</label>
       <label for="family">in </label>
@@ -110,13 +104,14 @@
     <p>
   </form>
 
-  <span class="button" id="copy" onclick="copy(this); ">COPY LINK</span>
-  <a id="download-link">
-    <span class="button" id="download-name">Download</span>
-    <br>
-    <canvas id="canvas"></canvas>
-  </a>
-  <div id="advanced-toggle" onclick="toggleAdvanced()" title="advanced"></div>
+  <div class="hidden">
+    <span class="button" id="copy" onclick="copy(this); ">COPY LINK</span>
+    <a id="download-link">
+      <span class="button" id="download-name">Download</span>
+      <br>
+    </a>
+    <div id="advanced-toggle" onclick="toggleAdvanced()" title="advanced"></div>
+  </div>
 
   <script src="./runes.js"></script>
   <script src="./script.js"></script>
